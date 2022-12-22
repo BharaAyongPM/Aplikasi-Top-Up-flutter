@@ -39,11 +39,11 @@ class _LoginPageState extends State<LoginPage>{
                 child: Column(
                   children: [
                     Text(
-                      'Hello',
-                      style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                      'VIGENESIA',
+                      style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      'Signin into your account',
+                      'SILAHKAN MASUK',
                       style: TextStyle(color: Colors.grey),
                     ),
                     SizedBox(height: 30.0),
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage>{
                           children: [
                             Container(
                               child: TextField(
-                                decoration: ThemeHelper().textInputDecoration('User Name', 'Enter your user name'),
+                                decoration: ThemeHelper().textInputDecoration('email', 'masukan email'),
                               ),
                               decoration: ThemeHelper().inputBoxDecorationShaddow(),
                             ),
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage>{
                             Container(
                               child: TextField(
                                 obscureText: true,
-                                decoration: ThemeHelper().textInputDecoration('Password', 'Enter your password'),
+                                decoration: ThemeHelper().textInputDecoration('Password', 'masukan password'),
                               ),
                               decoration: ThemeHelper().inputBoxDecorationShaddow(),
                             ),

@@ -1,10 +1,17 @@
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_ui/common/theme_helper.dart';
 import 'package:flutter_login_ui/pages/widgets/header_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_login_ui/main.dart';
+import 'login_page.dart';
+
 
 import 'profile_page.dart';
 
@@ -16,6 +23,47 @@ class RegistrationPage extends  StatefulWidget{
 }
 
 class _RegistrationPageState extends State<RegistrationPage>{
+
+  TextEditingController nama = TextEditingController();
+  TextEditingController profesi = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  Future register() async {
+    var url ="http://192.168.133.62/login/register.php";
+    var response = await http.post(
+        Uri.parse(url),body:{
+      "nama" : nama.text,
+      "profesi" : profesi.text,
+      "email" : email.text,
+      "password" : password.text,
+
+    });
+    var data = json.decode(response.body);
+    if (data == "Error" ) {
+      Fluttertoast.showToast(
+          msg: "user sudah ada",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+    }else{
+      Fluttertoast.showToast(
+          msg: "registrasi sukses",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+
+    }
+  }
 
   final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
@@ -61,7 +109,7 @@ class _RegistrationPageState extends State<RegistrationPage>{
                                   ],
                                 ),
                                 child: Icon(
-                                  Icons.person,
+                                  Icons.videogame_asset,
                                   color: Colors.grey.shade300,
                                   size: 80.0,
                                 ),
@@ -79,21 +127,16 @@ class _RegistrationPageState extends State<RegistrationPage>{
                         ),
                         SizedBox(height: 30,),
                         Container(
-                          child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration('First Name', 'Enter your first name'),
+                          child: TextField(
+                            controller: nama,
+                            decoration: ThemeHelper().textInputDecoration('Name', 'Enter your first name'),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
-                        SizedBox(height: 30,),
+
                         Container(
                           child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration('Last Name', 'Enter your last name'),
-                          ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                        ),
-                        SizedBox(height: 20.0),
-                        Container(
-                          child: TextFormField(
+                            controller: email,
                             decoration: ThemeHelper().textInputDecoration("E-mail address", "Enter your email"),
                             keyboardType: TextInputType.emailAddress,
                             validator: (val) {
@@ -105,25 +148,18 @@ class _RegistrationPageState extends State<RegistrationPage>{
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
-                        SizedBox(height: 20.0),
+                        SizedBox(height: 30,),
                         Container(
-                          child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration(
-                                "Mobile Number",
-                                "Enter your mobile number"),
-                            keyboardType: TextInputType.phone,
-                            validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
-                                return "Enter a valid phone number";
-                              }
-                              return null;
-                            },
+                          child: TextField(
+                            controller: profesi,
+                            decoration: ThemeHelper().textInputDecoration('Profesi', 'Enter your first name'),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
+                            controller: password,
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
                                 "Password*", "Enter your password"),
@@ -190,19 +226,15 @@ class _RegistrationPageState extends State<RegistrationPage>{
                               ),
                             ),
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfilePage()
-                                    ),
-                                        (Route<dynamic> route) => false
-                                );
-                              }
+                              register();
+                              LoginPage();
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+
                             },
                           ),
                         ),
                         SizedBox(height: 30.0),
-                        Text("Or create account using social media",  style: TextStyle(color: Colors.grey),),
+                        Text("atau masuk menggunakan sosial media",  style: TextStyle(color: Colors.grey),),
                         SizedBox(height: 25.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

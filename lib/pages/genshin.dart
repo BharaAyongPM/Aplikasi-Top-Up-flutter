@@ -1,10 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:topup/main.dart';
-
-import '../providers/auth.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:flutter_login_ui/main.dart';
+
+
+
 
 //import '../pages/add_product_page.dart';
 //import '../widgets/product_item.dart';
@@ -40,9 +41,9 @@ class _genshinState extends State<genshin> {
   void launchWhatsapp ({@required number, @required message}) async{
     var text;
     String url ="https://api.whatsapp.com/send?phone=6289620691733&text=Halo!%0ASaya%20mau%20Top UP%20GenshinImpact,%20apakah%20bisa%20dibantu?";
-
     await canLaunch(url) ? launch(url) : print("tidak bisa membuka whatsapp");
   }
+
 
  
 
@@ -53,17 +54,15 @@ class _genshinState extends State<genshin> {
 
     var child;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.logout),
-          onPressed: () => Provider.of<Auth>(context, listen: false).logout(),
+        appBar: AppBar(
+          leading: IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: (){}
+          ),
+          title: Text("VIGENESIA"),
         ),
-        title: Text("GENPACT ID"),
-        
-        
-  
-      ),
-      backgroundColor: Colors.blue[100],
+
+        backgroundColor: Colors.purple[100],
      body: Container(
         child: Container(
           child: Column(

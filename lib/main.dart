@@ -21,21 +21,21 @@ class LoginUiApp extends StatelessWidget {
   // Color _accentColor= HexColor('#5E18C8');
 
   // Our Logo Blue Color
-  //Color _primaryColor= HexColor('#651BD2');
+  //Color _primaryColor= HexColor('#71DBFF');
   //Color _accentColor= HexColor('#320181');
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Login UI',
+      title: 'VIGENESIA',
       theme: ThemeData(
         primaryColor: _primaryColor,
         accentColor: _accentColor,
         scaffoldBackgroundColor: Colors.grey.shade100,
         primarySwatch: Colors.grey,
       ),
-      home: SplashScreen(title: 'Flutter Login UI'),
+      home: SplashScreen(title: 'VIGENESIA'),
     );
   }
 }
